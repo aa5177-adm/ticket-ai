@@ -1,0 +1,46 @@
+```
+└── 📁backend
+    └── 📁app
+        └── 📁__pycache__
+            ├── __init__.cpython-312.pyc
+            ├── main.cpython-312.pyc
+        └── 📁api
+            └── 📁__pycache__
+                ├── __init__.cpython-312.pyc
+            └── 📁routes
+                └── 📁__pycache__
+                    ├── __init__.cpython-312.pyc
+                    ├── tickets.cpython-312.pyc
+                ├── __init__.py
+                ├── tickets.py
+            ├── __init__.py
+        └── 📁core
+            └── 📁__pycache__
+                ├── __init__.cpython-312.pyc
+                ├── config.cpython-312.pyc
+            ├── __init__.py
+            ├── config.py
+        └── 📁db
+            ├── __init__.py
+            ├── session.py
+        └── 📁integrations
+            └── 📁email
+                ├── __init__.py
+            └── 📁jira
+                ├── __init__.py
+            └── 📁pubsub
+                ├── __init__.py
+            └── 📁servicenow
+                ├── __init__.py
+            ├── __init__.py
+        └── 📁models
+            ├── __init__.py
+            ├── ticket.py
+        └── 📁schemas
+            ├── __init__.py
+        └── 📁services
+            ├── __init__.py
+        ├── __init__.py
+        ├── main.py
+    └── .env
+```
