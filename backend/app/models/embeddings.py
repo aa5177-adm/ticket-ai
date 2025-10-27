@@ -23,10 +23,10 @@ class Embeddings(Base):
     # Table arguments for indexing and constraints
     __table_args__ = (
         Index(
-            "ix_embeddings_ticket_id", "ticket_id"
+            "idx_embeddings_ticket_id", "ticket_id"
         ),  # Index for fast lookup by ticket_id
         Index(
-            "ix_embeddings_vector", "vector", postgresql_using="ivfflat"
+            "idx_embeddings_vector", "vector", postgresql_using="ivfflat"
         ),  # Index for vector similarity search
     )
     """

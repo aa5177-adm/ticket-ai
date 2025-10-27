@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, Boolean, ForeignKey, Text
+from sqlalchemy import Column, String, DateTime, ForeignKey, Text
 from sqlalchemy.dialects.postgresql import UUID, ENUM as PgEnum
 from sqlalchemy.orm import relationship
 from app.db.base import Base
@@ -33,9 +33,15 @@ class HistoricalTicket(Base):
         ForeignKey("team_members.id", ondelete="SET NULL"),
         nullable=True,
     )
+
+    # Relationships
+
     assignee = relationship("TeamMember", back_populates="tickets")
 
     # Assignment History?
+    assignments = relationship(
+        "TicketAssignment", back_populates="ticket", cascade="all, delete-orphan"
+    )
 
     # Embeddings
     embeddings = relationship(

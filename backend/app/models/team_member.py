@@ -33,3 +33,19 @@ class TeamMember(Base):
     # Relationships
     tickets = relationship("HistoricalTicket", back_populates="assignee")
 
+    # assignment
+    assignments = relationship("TicketAssignment", back_populates="assignee", cascade="all, delete-orphan")
+    
+    # workload
+    workload = relationship("TeamMemberWorkload", back_populates="member", cascade="all, delete-orphan")
+    
+    # skills
+    skills = relationship("TeamMemberSkill", back_populates="member", cascade="all, delete-orphan")
+    
+    # pto & timeoff
+    time_offs = relationship(
+        "TimeOff",
+        back_populates="member",
+        foreign_keys="TimeOff.member_id",
+        cascade="all, delete-orphan",
+    )
