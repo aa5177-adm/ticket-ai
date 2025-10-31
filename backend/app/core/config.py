@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     ENVIRONMENT: str = "development"
     GCP_PROJECT_ID: str
+    SERVICENOW_WEBHOOK_SECRET: str
 
     class Config:
         env_file = ".env"

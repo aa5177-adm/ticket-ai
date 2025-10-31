@@ -13,18 +13,9 @@ Ticket AI is built to:
 
 ---
 
-## 🗓️ Demo Schedule
-
-| **Team**       | **Date**          |
-|-----------------|-------------------|
-| AI Team        | 04/09/2025        |
-| Cloud Team     | 11/09/2025        |
-
----
-
 ## 🎯 Project Kickoff
 
-The backend implementation for Ticket AI  **27/09/2025**. Key focus areas include:
+The backend implementation for Ticket AI  **01/10/2025**. Key focus areas include:
 
 ### 📂 Database
 - **Selection** of the most suitable database system.
