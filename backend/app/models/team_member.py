@@ -16,7 +16,7 @@ class TeamMember(Base):
     __tablename__ = "team_members"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True)
-    coreid = Column(String(6), primary_key=True, index=True)
+    coreid = Column(String(6), unique=True, nullable=False, index=True)
     name = Column(String(50), nullable=False)
     email = Column(String(50), unique=True, nullable=False)
     role = Column(String(50), nullable=False)
@@ -31,21 +31,25 @@ class TeamMember(Base):
     )
 
     # Relationships
-    tickets = relationship("HistoricalTicket", back_populates="assignee")
+    
+    # Active tickets currently assigned
+    active_tickets = relationship("Ticket", back_populates="assignee")
+    
+    # Historical tickets (resolved/closed)
+    historical_tickets = relationship("HistoricalTicket", back_populates="assignee")
 
-    # assignment
-    assignments = relationship("TicketAssignment", back_populates="assignee", cascade="all, delete-orphan")
+    # All assignments (both active and historical)
+    assignments = relationship("TicketAssignment", back_populates="assignee")
     
-    # workload
-    workload = relationship("TeamMemberWorkload", back_populates="member", cascade="all, delete-orphan")
+    # Current workload tracking
+    workload = relationship("TeamMemberWorkload", back_populates="member", uselist=False, cascade="all, delete-orphan")
     
-    # skills
+    # Skills
     skills = relationship("TeamMemberSkill", back_populates="member", cascade="all, delete-orphan")
     
-    # pto & timeoff
+    # PTO and time off
     time_offs = relationship(
         "TimeOff",
         back_populates="member",
-        foreign_keys="TimeOff.member_id",
         cascade="all, delete-orphan",
     )
