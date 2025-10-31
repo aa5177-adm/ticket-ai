@@ -4,6 +4,8 @@ from app.core.config import settings
 
 # router imports
 from app.api.routes.tickets import tickets_router
+from app.api.routes.webhooks import webhook_router
+# from app.api.routes.agent_endpoints import router as agent_router
 
 
 app = FastAPI(
@@ -23,5 +25,18 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for load balancers and monitoring"""
+    return {
+        "status": "healthy",
+        "service": "ticket-ai",
+        "version": settings.API_VERSION
+    }
+
 # Register routers
 app.include_router(tickets_router, prefix="/api/v1/auth", tags=["Auth"])
+# app.include_router(agent_router, prefix="/api/v1", tags=["AI Agents"])
+
+app.include_router(webhook_router, prefix="/api/v1", tags=["ServiceNow Webhook"])
