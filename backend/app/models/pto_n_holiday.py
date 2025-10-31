@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql import UUID, ENUM as PgEnum
 from sqlalchemy.orm import relationship
 import uuid
 
-class TimeOffTYpe(str, Enum):
+class TimeOffType(str, Enum):
     VACATION = "vacation"
     SICK = "sick"
     TRAINING = "training"
@@ -32,13 +32,15 @@ class TimeOff(Base):
     )
     start_date = Column(Date, nullable=False, index=True)
     end_date = Column(Date, nullable=False, index=True)
-    type = Column(PgEnum(TimeOffTYpe, name="timeoff_type", create_type=False))
+    type = Column(PgEnum(TimeOffType, name="timeoff_type", create_type=False))
     # Relationships
     member = relationship(
         "TeamMember", back_populates="time_offs", foreign_keys=[member_id]
     )
 
-    __table_args__ = Index("idx_timeoff_dates", "member_id", "start_date", "end_date")
+    __table_args__ = (
+        Index("idx_timeoff_dates", "member_id", "start_date", "end_date"),
+    )
 
 
 class Holiday(Base):
@@ -58,5 +60,5 @@ class Holiday(Base):
     # Composite indexes for common query patterns
     __table_args__ = (
         # Index for regional holiday queries
-        Index('idx_holidays_region_year', 'region', 'year')
+        Index('idx_holidays_region_year', 'region', 'year'),
     )
