@@ -39,36 +39,36 @@ The **Intelligent Ticket Assignment Engine** is a multi-factor, AI-powered syste
          ▼
 ┌─────────────────────────────┐
 │ 1. Extract Ticket Details   │
-│    - Title, Description      │
-│    - Priority, Category      │
-│    - Generate Embedding      │
+│    - Title, Description     │
+│    - Priority, Category     │
+│    - Generate Embedding     │
 └────────┬────────────────────┘
          │
          ▼
 ┌─────────────────────────────┐
 │ 2. Search Similar Tickets   │
-│    - Vector Similarity       │
-│    - Historical Patterns     │
-│    - Top 10 matches          │
+│    - Vector Similarity      │
+│    - Historical Patterns    │
+│    - Top 10 matches         │
 └────────┬────────────────────┘
          │
          ▼
 ┌─────────────────────────────┐
-│ 3. Assignment Engine         │
+│ 3. Assignment Engine        │
 │    ┌──────────────────────┐ │
 │    │ Similarity Check     │ │
 │    │ (>70% threshold)     │ │
 │    └──────────┬───────────┘ │
-│               │              │
-│               ▼              │
+│               │             │
+│               ▼             │
 │    ┌──────────────────────┐ │
 │    │ Evaluate Candidates  │ │
 │    │ - Fetch team data    │ │
 │    │ - Calculate scores   │ │
 │    │ - Rank candidates    │ │
 │    └──────────┬───────────┘ │
-│               │              │
-│               ▼              │
+│               │             │
+│               ▼             │
 │    ┌──────────────────────┐ │
 │    │ Apply Business Rules │ │
 │    │ - Overload check     │ │
