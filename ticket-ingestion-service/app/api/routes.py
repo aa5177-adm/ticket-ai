@@ -89,12 +89,12 @@ async def process_webhook_background(
         # Publish ticket to Pub/Sub
         message_id = publisher.publish_ticket(payload_dict, webhook_id)
         logger.info(
-            f"[{webhook_id}] Successfully published ticket '{payload_dict.get('number')}' "
+            f"[{webhook_id}] Successfully published ticket '{payload_dict.get('ticket_id')}' "
             f"to Pub/Sub with message ID: {message_id}"
         )
     except Exception as e:
         logger.error(
-            f"[{webhook_id}] Failed to publish ticket '{payload_dict.get('number')}' "
+            f"[{webhook_id}] Failed to publish ticket '{payload_dict.get('ticket_id')}' "
             f"to Pub/Sub: {e}",
             exc_info=True
         )
@@ -172,7 +172,7 @@ async def receive_webhook(
             "status": "accepted",
             "message": "Webhook received and queued for processing",
             "webhook_id": webhook_id,
-            "ticket_number": payload.ticket_id
+            "ticket_id": payload.ticket_id
         }
 
     except HTTPException:
