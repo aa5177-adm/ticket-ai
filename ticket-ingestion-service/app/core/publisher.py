@@ -96,7 +96,7 @@ class TicketPublisher:
             message_id = future.result(timeout=self.timeout)
             
             logger.info(
-                f"Successfully published ticket '{ticket_data.get('number')}' "
+                f"Successfully published ticket '{ticket_data.get('ticket_id')}' "
                 f"with message ID: {message_id}"
             )
             
@@ -104,23 +104,23 @@ class TicketPublisher:
             
         except exceptions.GoogleAPICallError as e:
             logger.error(
-                f"Google API error publishing ticket '{ticket_data.get('number')}': {e}",
+                f"Google API error publishing ticket '{ticket_data.get('ticket_id')}': {e}",
                 exc_info=True
             )
             raise Exception(f"Failed to publish message to Pub/Sub: {e}")
         except TimeoutError as e:
             logger.error(
-                f"Timeout publishing ticket '{ticket_data.get('number')}': {e}"
+                f"Timeout publishing ticket '{ticket_data.get('ticket_id')}': {e}"
             )
             raise Exception(f"Pub/Sub publish timeout after {self.timeout}s")
         except json.JSONDecodeError as e:
             logger.error(
-                f"Invalid JSON in ticket data '{ticket_data.get('number')}': {e}"
+                f"Invalid JSON in ticket data '{ticket_data.get('ticket_id')}': {e}"
             )
             raise Exception(f"Invalid ticket data format: {e}")
         except Exception as e:
             logger.error(
-                f"Unexpected error publishing ticket '{ticket_data.get('number')}': {e}",
+                f"Unexpected error publishing ticket '{ticket_data.get('ticket_id')}': {e}",
                 exc_info=True
             )
             raise
