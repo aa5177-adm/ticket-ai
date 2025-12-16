@@ -133,13 +133,13 @@ async def receive_webhook(
         Success response with webhook ID
     """
     # Generate unique webhook ID for tracking
-    webhook_id = f"webhook_{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}_{payload.number}"
+    webhook_id = f"webhook_{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}_{payload.ticket_id}"
     
     try:
         # Log the incoming request
         logger.info(
             f"[{webhook_id}] Received webhook from ServiceNow - "
-            f"Event: {payload.event_type}, Ticket: {payload.number}"
+            f"Event: {payload.event_type}, Ticket: {payload.ticket_id}"
         )
 
         # Validate event type
@@ -172,7 +172,7 @@ async def receive_webhook(
             "status": "accepted",
             "message": "Webhook received and queued for processing",
             "webhook_id": webhook_id,
-            "ticket_number": payload.number
+            "ticket_number": payload.ticket_id
         }
 
     except HTTPException:
