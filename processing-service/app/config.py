@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     app_name: str = "Processing Service"
     app_version: str = "1.0.0"
     environment: str = "production"
+
+    log_level: str
     
     class Config:
         env_file = ".env"
