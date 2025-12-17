@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel, Field
+from typing import Optional, Dict
 from pythonjsonlogger import jsonlogger
 
 from .config import settings
@@ -59,8 +60,17 @@ class PubSubEnvelope(BaseModel):
 
 class TicketData(BaseModel):
     """Ticket data structure."""
-    ticket_id: str
-    # Add additional fields as needed for your use case
+    event_type: str = Field(..., description="Event type from ServiceNow")
+    ticket_id: str = Field(..., description="Unique ticket identifier")
+    title: str = Field(..., description="Title of the ticket")
+    description: str = Field(..., description="Detailed description of the ticket")
+    priority: str = Field(..., description="Priority level of the ticket")
+    status: str = Field(..., description="Current status of the ticket")
+    caller_id: str = Field(..., description="Identifier of the caller")
+    due_date: str = Field(..., description="Due date for the ticket resolution")
+    category: Optional[str] = Field(None, description="Category of the ticket")
+    created_at: Optional[str] = Field(None, description="Ticket creation timestamp (ISO format)")
+    metadata: Optional[Dict[str, Any]] = Field(default_factory=dict, description="Additional metadata")
 
 
 # Lifespan context manager for startup/shutdown events
@@ -182,6 +192,11 @@ async def receive_pubsub_message(request: Request) -> None:
         # Decode the base64-encoded data
         data_bytes = base64.b64decode(envelope.message.data)
         ticket_dict = json.loads(data_bytes.decode("utf-8"))
+
+        logger.info(
+            "Decoded ticket data from Pub/Sub message",
+            extra={"ticket_data": ticket_dict}
+        )
         
         # Validate ticket data
         ticket_data = TicketData(**ticket_dict)
